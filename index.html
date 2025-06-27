@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>告白页面</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #fff0f5;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #ff1493;
+    }
+    .buttons {
+      margin-top: 50px;
+    }
+    button {
+      font-size: 24px;
+      padding: 15px 40px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    #yesBtn {
+      background-color: #32cd32;
+      color: white;
+    }
+    #noBtn {
+      background-color: #ff6347;
+      color: white;
+    }
+    .confetti {
+      font-size: 40px;
+      animation: fall 2s ease-in-out infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-100px); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(500px); opacity: 0; }
+    }
+    #celebration {
+      display: none;
+      font-size: 30px;
+      color: #ff69b4;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>亮亮愿意做我的女朋友嘛？</h1>
+  <div class="buttons">
+    <button id="yesBtn">愿意 ❤️</button>
+    <button id="noBtn">不愿意 💔</button>
+  </div>
+  <div id="celebration">
+    🎉🎊 太棒了！我太开心啦！🎊🎉<br><br>
+    <span class="confetti">💖✨🌟💘💞💝</span>
+  </div>
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const celebration = document.getElementById("celebration");
+
+    yesBtn.addEventListener("click", () => {
+      celebration.style.display = "block";
+      document.body.style.backgroundColor = "#ffe4e1";
+    });
+
+    noBtn.addEventListener("mouseover", () => {
+      yesBtn.style.transform = "scale(1.2)";
+      noBtn.style.transform = "scale(0.8)";
+    });
+  </script>
+</body>
+</html>
