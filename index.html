@@ -8,7 +8,7 @@
       margin: 0;
       padding: 60px 20px;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(120deg, #ffd6ec, #ffe4f2, #ffeaea);
+      background: linear-gradient(-45deg, #a3d5ff, #dbeeff, #b0e0ff, #e0f7ff);
       background-size: 400% 400%;
       animation: gradient 15s ease infinite;
       text-align: center;
@@ -22,7 +22,7 @@
     }
 
     h1 {
-      color: #ff4081;
+      color: #0066cc;
       font-size: 2.2em;
       margin-bottom: 40px;
     }
@@ -45,8 +45,8 @@
       display: block;
       margin: 10px auto;
       padding: 12px 20px;
-      background-color: #ffeaf0;
-      border: 2px solid #ff69b4;
+      background-color: #e8f4ff;
+      border: 2px solid #3399ff;
       border-radius: 15px;
       width: 80%;
       max-width: 400px;
@@ -56,25 +56,25 @@
     }
 
     .option:hover {
-      background-color: #ffe0ec;
+      background-color: #d0eaff;
     }
 
     #feedback {
       margin-top: 20px;
       font-size: 1.2em;
-      color: #ff1493;
+      color: #0066cc;
     }
 
     #score {
       margin-top: 20px;
       font-size: 1em;
-      color: #888;
+      color: #666;
     }
 
     #celebration {
       display: none;
       font-size: 1.6em;
-      color: #ff1493;
+      color: #003366;
       margin-top: 30px;
     }
 
@@ -108,7 +108,7 @@
   </style>
 </head>
 <body>
-  <h1>🎀 亮亮知识竞猜 🎀</h1>
+  <h1>🌟 亮亮知识竞猜 🌟</h1>
   <div class="quiz-container">
     <div id="question" class="question"></div>
     <div id="options"></div>
@@ -116,60 +116,20 @@
     <div id="angry">亮亮生气气了！😡</div>
     <div id="score"></div>
   </div>
-  <div id="celebration">🎉 你太懂亮亮啦！💖</div>
+  <div id="celebration"></div>
 
   <script>
     const questions = [
-      {
-        q: "亮亮生日是？",
-        options: ["农历8月26", "阳历8月26", "农历7月26"],
-        answer: "农历8月26"
-      },
-      {
-        q: "亮亮不喜欢吃哪种蔬菜？",
-        options: ["南瓜", "土豆", "生菜"],
-        answer: "南瓜"
-      },
-      {
-        q: "亮亮最喜欢哪种棒棒糖？",
-        options: ["橙子味", "草莓味", "荔枝味"],
-        answer: "草莓味"
-      },
-      {
-        q: "亮亮喜欢哪种零食？",
-        options: ["鸡爪", "芋泥", "肉松"],
-        answer: "鸡爪"
-      },
-      {
-        q: "亮亮不能吃什么？",
-        options: ["鸡蛋", "猪蹄", "夏威夷果"],
-        answer: "鸡蛋"
-      },
-      {
-        q: "亮亮喜欢哪种巧克力？",
-        options: ["白巧", "黑巧", "抹茶巧克力"],
-        answer: "黑巧"
-      },
-      {
-        q: "亮亮不喜欢哪种冰淇淋口味？",
-        options: ["香芋", "草莓", "榴莲"],
-        answer: "香芋"
-      },
-      {
-        q: "亮亮喜欢的坚果是？",
-        options: ["开心果", "夏威夷果", "腰果"],
-        answer: "夏威夷果"
-      },
-      {
-        q: "亮亮最喜欢的水果是？",
-        options: ["芒果", "车厘子", "哈密瓜"],
-        answer: "车厘子"
-      },
-      {
-        q: "亮亮希望你送她什么？",
-        options: ["金豆豆", "银项链", "棒棒糖"],
-        answer: "金豆豆"
-      }
+      { q: "亮亮生日是？", options: ["农历8月26", "阳历8月26", "农历7月26"], answer: "农历8月26" },
+      { q: "亮亮不喜欢吃哪种蔬菜？", options: ["南瓜", "土豆", "生菜"], answer: "南瓜" },
+      { q: "亮亮最喜欢哪种棒棒糖？", options: ["橙子味", "草莓味", "荔枝味"], answer: "草莓味" },
+      { q: "亮亮喜欢哪种零食？", options: ["鸡爪", "芋泥", "肉松"], answer: "鸡爪" },
+      { q: "亮亮不能吃什么？", options: ["鸡蛋", "猪蹄", "夏威夷果"], answer: "鸡蛋" },
+      { q: "亮亮喜欢哪种巧克力？", options: ["白巧", "黑巧", "抹茶巧克力"], answer: "黑巧" },
+      { q: "亮亮不喜欢哪种冰淇淋口味？", options: ["香芋", "草莓", "榴莲"], answer: "香芋" },
+      { q: "亮亮喜欢的坚果是？", options: ["开心果", "夏威夷果", "腰果"], answer: "夏威夷果" },
+      { q: "亮亮最喜欢的水果是？", options: ["芒果", "车厘子", "哈密瓜"], answer: "车厘子" },
+      { q: "亮亮最喜欢的花是？", options: ["满天星", "玫瑰", "郁金香"], answer: "满天星" }
     ];
 
     let current = 0;
@@ -222,12 +182,22 @@
     }
 
     function showCelebration() {
-      questionEl.style.display = "none";
-      optionsEl.style.display = "none";
-      feedbackEl.style.display = "none";
-      scoreEl.style.display = "none";
+      document.querySelector(".quiz-container").style.display = "none";
+
+      let msg = "";
+      if (score === questions.length) {
+        msg = "🎉 你太懂亮亮啦！💖";
+        startHeartRain();
+      } else if (score >= 7) {
+        msg = "💗 很懂亮亮！棒棒哒～";
+      } else if (score >= 4) {
+        msg = "😊 有进步！继续加油哦～";
+      } else {
+        msg = "🤔 你还不太了解亮亮呢~";
+      }
+
+      celebrationEl.innerHTML = msg;
       celebrationEl.style.display = "block";
-      startHeartRain();
     }
 
     function startHeartRain() {
@@ -242,7 +212,6 @@
       }, 200);
     }
 
-    // 启动
     showQuestion();
   </script>
 </body>
