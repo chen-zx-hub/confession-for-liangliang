@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>告白页面</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding-top: 100px;
+      overflow: hidden;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
       text-align: center;
-      margin-top: 100px;
-      background-color: #fff0f5;
     }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     h1 {
       font-size: 2.5em;
       color: #ff1493;
     }
+
     .buttons {
       margin-top: 50px;
     }
+
     button {
       font-size: 24px;
       padding: 15px 40px;
@@ -26,28 +39,82 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
+
     #yesBtn {
       background-color: #32cd32;
       color: white;
     }
+
     #noBtn {
       background-color: #ff6347;
       color: white;
     }
-    .confetti {
-      font-size: 40px;
-      animation: fall 2s ease-in-out infinite;
-    }
-    @keyframes fall {
-      0% { transform: translateY(-100px); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(500px); opacity: 0; }
-    }
+
     #celebration {
       display: none;
       font-size: 30px;
       color: #ff69b4;
       margin-top: 50px;
+      z-index: 10;
+      position: relative;
+    }
+
+    .firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: transparent;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(5); opacity: 0; }
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff69b4;
+      animation: fall linear infinite;
+      font-size: 20px;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    /* 对话气泡 */
+    .chatbox {
+      display: none;
+      margin-top: 30px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+
+    .bubble {
+      background: white;
+      color: #333;
+      padding: 10px 15px;
+      border-radius: 20px;
+      margin: 10px 0;
+      display: inline-block;
+      opacity: 0;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .bubble.me {
+      background: #ffb6c1;
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -57,24 +124,86 @@
     <button id="yesBtn">愿意 ❤️</button>
     <button id="noBtn">不愿意 💔</button>
   </div>
+
+  <div class="chatbox" id="chatbox"></div>
+
   <div id="celebration">
     🎉🎊 太棒了！我太开心啦！🎊🎉<br><br>
-    <span class="confetti">💖✨🌟💘💞💝</span>
+    <span style="font-size: 40px;">💖✨🌟💘💞💝</span>
   </div>
+
   <script>
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
     const celebration = document.getElementById("celebration");
+    const chatbox = document.getElementById("chatbox");
+
+    const messages = [
+      "其实我一直有句话想跟你说……",
+      "从第一次遇见你开始，我就知道你很特别 💫",
+      "你的笑容，总能点亮我的一天 ☀️",
+      "所以今天，我鼓起勇气问你……",
+      "你愿意做我的女朋友吗？🥺"
+    ];
+
+    // 爱心雨
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      heart.innerText = "💗";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    // 烟花
+    function createFirework(x, y) {
+      for (let i = 0; i < 30; i++) {
+        const dot = document.createElement("div");
+        dot.className = "firework";
+        dot.style.left = x + "px";
+        dot.style.top = y + "px";
+        dot.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+        dot.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`;
+        document.body.appendChild(dot);
+        setTimeout(() => dot.remove(), 1000);
+      }
+    }
+
+    // 显示对话气泡
+    function showMessages() {
+      chatbox.style.display = "block";
+      let index = 0;
+      const interval = setInterval(() => {
+        if (index < messages.length) {
+          const bubble = document.createElement("div");
+          bubble.className = "bubble me";
+          bubble.textContent = messages[index];
+          chatbox.appendChild(bubble);
+          index++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 1800);
+    }
 
     yesBtn.addEventListener("click", () => {
       celebration.style.display = "block";
       document.body.style.backgroundColor = "#ffe4e1";
+
+      // 爱心和烟花
+      setInterval(createHeart, 300);
+      createFirework(window.innerWidth / 2, 200);
     });
 
     noBtn.addEventListener("mouseover", () => {
       yesBtn.style.transform = "scale(1.2)";
       noBtn.style.transform = "scale(0.8)";
     });
+
+    // 启动聊天动画
+    showMessages();
   </script>
 </body>
 </html>
